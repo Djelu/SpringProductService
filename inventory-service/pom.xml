@@ -14,6 +14,11 @@
     <name>inventory-service</name>
     <description>inventory-service</description>
 
+    <properties>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -52,22 +57,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <from>
+                        <image>eclipse-temurin:19-jre</image>
+                        <auth>
+                            <username>${docker.username}</username>
+                            <password>${docker.password}</password>
+                        </auth>
+                    </from>
+                    <to>
+                        <image>registry.hub.docker.com/djelu/${project.artifactId}</image>
+                    </to>
+                    <container>
+                        <mainClass>com.fantasy.inventoryservice.InventoryServiceApplication</mainClass>
+                    </container>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

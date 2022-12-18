@@ -19,13 +19,16 @@
         <module>inventory-service</module>
         <module>discovery-service</module>
         <module>api-gateway</module>
-<!--        <module>notification-service</module>-->
+        <module>notification-service</module>
     </modules>
 
     <properties>
         <java.version>19</java.version>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
-        <testcontainers.version>1.17.6</testcontainers.version>
+        <docker.username>djelu</docker.username>
+        <docker.password>DBshirke33333333</docker.password>
     </properties>
 
     <dependencyManagement>
@@ -59,6 +62,19 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:19-jre</image>
+                    </from>
+                    <to>
+                        <image>registry.hub.docker.com/djelu/${project.artifactId}</image>
+                    </to>
                 </configuration>
             </plugin>
         </plugins>

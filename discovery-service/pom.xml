@@ -14,6 +14,11 @@
     <name>discovery-service</name>
     <description>discovery-service</description>
 
+    <properties>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -38,32 +43,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-<!--    <build>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>netflix-candidates</id>-->
-<!--            <name>Netflix Candidates</name>-->
-<!--            <url>https://artifactory-oss.prod.netflix.net/artifactory/maven-oss-candidates</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--        <repository>-->
-<!--            <id>spring-milestones</id>-->
-<!--            <name>Spring Milestones</name>-->
-<!--            <url>https://repo.spring.io/milestone</url>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:19-jre</image>
+                        <auth>
+                            <username>${docker.username}</username>
+                            <password>${docker.password}</password>
+                        </auth>
+                    </from>
+                    <to>
+                        <image>registry.hub.docker.com/djelu/${project.artifactId}</image>
+                    </to>
+                    <container>
+                        <mainClass>com.fantasy.discoveryservice.DiscoveryServiceApplication</mainClass>
+                    </container>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
